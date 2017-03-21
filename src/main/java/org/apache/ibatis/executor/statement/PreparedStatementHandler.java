@@ -33,8 +33,10 @@ import org.apache.ibatis.session.RowBounds;
 
 /**
  * @author Clinton Begin
+ * 可选的 StatementHandler有 SimpleStatementHandler, PreparedStatementHandler, CallableStatementHandler 三种
+ * StatementHandler是可以被拦截的, 和Executor一样, 被拦截的对象是一个代理对象, 由于Mybatis没有实现物理分页, 物理分页在这里实现
  */
-public class PreparedStatementHandler extends BaseStatementHandler {
+public class PreparedStatementHandler extends BasweStatementHandler {
 
   public PreparedStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
     super(executor, mappedStatement, parameter, rowBounds, resultHandler, boundSql);
@@ -88,6 +90,11 @@ public class PreparedStatementHandler extends BaseStatementHandler {
     }
   }
 
+    /**
+     * ParameterHandler随着StatementHandler的创建而创建, 默认的实现是 DefaultParameterHandler
+     * @param statement
+     * @throws SQLException
+     */
   @Override
   public void parameterize(Statement statement) throws SQLException {
     parameterHandler.setParameters((PreparedStatement) statement);

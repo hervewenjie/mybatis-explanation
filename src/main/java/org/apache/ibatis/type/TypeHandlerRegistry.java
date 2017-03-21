@@ -37,6 +37,7 @@ import org.apache.ibatis.io.Resources;
 /**
  * @author Clinton Begin
  * @author Kazuki Shimizu
+ * TypeHandler的管理注册类
  */
 public final class TypeHandlerRegistry {
 
@@ -47,6 +48,11 @@ public final class TypeHandlerRegistry {
 
   private static final Map<JdbcType, TypeHandler<?>> NULL_TYPE_HANDLER_MAP = new HashMap<JdbcType, TypeHandler<?>>();
 
+    /**
+     * Mybatis为我们实现了那么多TypeHandler
+     * 都继承一个抽象类 BaseTypeHandler
+     * 也可以继承 BaseTypeHandler自定义TypeHandler
+     */
   public TypeHandlerRegistry() {
     register(Boolean.class, new BooleanTypeHandler());
     register(boolean.class, new BooleanTypeHandler());

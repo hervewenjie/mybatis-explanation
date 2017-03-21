@@ -25,6 +25,9 @@ import java.sql.SQLException;
  */
 public class IntegerTypeHandler extends BaseTypeHandler<Integer> {
 
+  /**
+   * 设置参数
+   */
   @Override
   public void setNonNullParameter(PreparedStatement ps, int i, Integer parameter, JdbcType jdbcType)
       throws SQLException {

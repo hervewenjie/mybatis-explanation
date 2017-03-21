@@ -35,6 +35,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 /**
  * @author Clinton Begin
  * @author Eduardo Macarron
+ * ParameterHandler的默认实现
  */
 public class DefaultParameterHandler implements ParameterHandler {
 
@@ -58,6 +59,10 @@ public class DefaultParameterHandler implements ParameterHandler {
     return parameterObject;
   }
 
+    /**
+     *
+     * @param ps
+     */
   @Override
   public void setParameters(PreparedStatement ps) {
     ErrorContext.instance().activity("setting parameters").object(mappedStatement.getParameterMap().getId());
@@ -84,6 +89,10 @@ public class DefaultParameterHandler implements ParameterHandler {
             jdbcType = configuration.getJdbcTypeForNull();
           }
           try {
+              /**
+               * 根据参数类型和参数对应JDBC类型决定使用哪个TypeHandler
+               * 最后调用jdbc的PreparedStatementHandler的setLong/setInt/...
+               */
             typeHandler.setParameter(ps, i + 1, value, jdbcType);
           } catch (TypeException e) {
             throw new TypeException("Could not set parameters for mapping: " + parameterMapping + ". Cause: " + e, e);
